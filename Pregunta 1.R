@@ -50,6 +50,12 @@ alfa <- 0.05
 bootstrap <- 5000
 distribucion_boot<-two.boot(trimestre1,trimestre2, FUN = mean, R = bootstrap)
 
+valores <- data.frame (distribucion_boot$t)
+colnames(valores) <- " valores "
+
+
+
+
 # Se establece un valor nulo igual a 12.
 valor_nulo <- 12
 desplazamiento <- mean(distribucion_boot[["t"]]-valor_nulo)
@@ -59,4 +65,5 @@ distribucion_nula <-(distribucion_boot[["t"]]-desplazamiento)
 p <- (sum(abs(distribucion_nula)>abs(diferencia))+1)/(bootstrap +1)
 cat("El valor p es:",p)
 
+intervalo_bca <- boot.ci(distribucion_boot, conf = 1 - alfa,type="bca")
 # Conclusion
